@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ item.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>{{ item.name }}</h1>
+        <a href="{{ url_for('index') }}">Back to Auction List</a>
+    </header>
+
+    <main>
+        <section class="auction-details">
+            <h2>Current Bid: ${{ item.current_bid }}</h2>
+            <p>Description: {{ item.description }}</p>
+            <form action="{{ url_for('bid', item_id=item.id) }}" method="post">
+                <label for="bid_amount">Place Your Bid:</label>
+                <input type="number" id="bid_amount" name="bid_amount" min="{{ item.current_bid + 1 }}" placeholder="Enter your bid" required>
+                <button type="submit">Submit Bid</button>
+            </form>
+            <div class="auction-status">
+                <p class="status-text">Current Status: <span class="status">Auction is ongoing</span></p>
+                <p class="winner-text">Winner: <span class="winner">None</span></p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
